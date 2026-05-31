@@ -2,7 +2,9 @@
 SECOM Semiconductor Manufacturing Defect Detection
 Step 6: Final Model Comparison (앙상블 포함)
 """
-
+import os
+os.makedirs('../figures', exist_ok=True)
+os.makedirs('../results', exist_ok=True)
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
