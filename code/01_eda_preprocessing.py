@@ -2,7 +2,9 @@
 SECOM Semiconductor Manufacturing Defect Detection
 Step 1: Exploratory Data Analysis & Preprocessing
 """
-
+import os
+os.makedirs('../figures', exist_ok=True)
+os.makedirs('../results', exist_ok=True)
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
