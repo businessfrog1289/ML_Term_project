@@ -6,7 +6,9 @@ Step 2: Baseline Models
   - Naive Bayes
 모두 클래스 불균형 처리(class_weight='balanced' / SMOTE)를 적용
 """
-
+import os
+os.makedirs('../figures', exist_ok=True)
+os.makedirs('../results', exist_ok=True)
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
