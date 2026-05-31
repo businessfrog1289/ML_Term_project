@@ -1,6 +1,6 @@
-# ML_Term_project
 # SECOM 반도체 제조 공정 불량 탐지
-**[2026-1] Machine Learning Term Project**
+**[2026-1] Machine Learning Term Project**  
+
 ---
 
 ## 문제 정의
@@ -16,7 +16,7 @@
 
 | 항목 | 내용 |
 |------|------|
-| 출처 | (https://www.kaggle.com/datasets/paresh2047/uci-semcom) |
+| 출처 | https://www.kaggle.com/datasets/paresh2047/uci-semcom |
 | 기간 | 2008.01 ~ 2008.12 |
 | 샘플 수 | 1,567 |
 | 특성 수 | 590 (연속형 익명 센서 신호) |
@@ -28,8 +28,8 @@
 ## 프로젝트 구조
 
 ```
-secom_project/
-├── secom.csv                       ← 원본 데이터 (이 폴더에 복사)
+ML_Term_project/
+├── secom.csv                       ← 원본 데이터
 ├── requirements.txt
 ├── README.md
 ├── code/
@@ -40,9 +40,11 @@ secom_project/
 │   ├── 05_decision_tree.py         # DT + 1-SE Pruning
 │   ├── 06_final_comparison.py      # 전체 모델 비교 (앙상블 포함)
 │   └── 07_ensemble.py              # Random Forest · GradBoost · Soft Voting
-├── figures/                        ← 생성된 그래프 (자동 생성)
-└── results/                        ← pkl / csv 결과 (자동 생성)
+├── figures/                        ← 생성된 그래프 (실행 시 자동 생성)
+└── results/                        ← pkl / csv 결과 (실행 시 자동 생성)
 ```
+
+> `figures/`와 `results/` 폴더는 코드 실행 시 자동으로 생성되므로 저장소에 포함되지 않는다.
 
 ---
 
@@ -72,26 +74,29 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. 데이터 준비
+### 4. 실행 순서
 
-`secom.csv` 파일을 프로젝트 루트(`secom_project/`)에 복사한다.
+코드는 `code/` 폴더 안에서 실행한다. `secom.csv`는 `code/`의 **상위 폴더(프로젝트 루트)** 에 위치해야 한다.
 
-### 5. 실행 순서
+```
+ML_Term_project/   ← 여기에 secom.csv가 있어야 함
+└── code/          ← 여기서 아래 명령 실행
+```
 
 ```bash
 cd code
 
-python 01_eda_preprocessing.py    # EDA & 전처리    → figures/fig01~04
-python 02_baseline_models.py      # Baseline        → figures/fig05~06
-python 03_glm_regularization.py   # GLM             → figures/fig07~08
-python 04_svm.py                  # SVM             → figures/fig09~10
-python 05_decision_tree.py        # Decision Tree   → figures/fig11~14
-python 07_ensemble.py             # Ensemble        → figures/fig19~20
-python 06_final_comparison.py     # 최종 비교       → figures/fig15~18
+python 01_eda_preprocessing.py    # EDA & 전처리    → ../figures/fig01~04
+python 02_baseline_models.py      # Baseline        → ../figures/fig05~06
+python 03_glm_regularization.py   # GLM             → ../figures/fig07~08
+python 04_svm.py                  # SVM             → ../figures/fig09~10
+python 05_decision_tree.py        # Decision Tree   → ../figures/fig11~14
+python 07_ensemble.py             # Ensemble        → ../figures/fig19~20
+python 06_final_comparison.py     # 최종 비교       → ../figures/fig15~18
 ```
 
-> **주의**: 반드시 위 순서대로 실행해야 한다. 각 스크립트는 이전 단계의 `results/*.pkl`을 읽는다.
-> 06번은 07번 이후에 실행한다.
+> **주의**: 반드시 위 순서대로 실행해야 한다. 각 스크립트는 이전 단계에서 `../results/`에 저장된 `.pkl` 파일을 읽는다.  
+> `06_final_comparison.py`는 `07_ensemble.py` 이후에 실행한다.
 
 ---
 
@@ -124,7 +129,7 @@ python 06_final_comparison.py     # 최종 비교       → figures/fig15~18
 - ROC-AUC 최고: **Random Forest (0.7529)** — 단, F1-Fail = 0.000으로 실질적 탐지 불가
 - 균형 성능 최고: **SVM RBF (AUC 0.6938, F1-Fail 0.1818)**
 
-전체 결과는 `results/final_comparison.csv` 참고.
+전체 결과는 실행 후 생성되는 `results/final_comparison.csv` 참고.
 
 ---
 
