@@ -8,7 +8,9 @@ Step 3: GLM + Regularization (속도 최적화 버전)
   - n_jobs=-1: 병렬 처리
   - 실시간 진행도 출력
 """
-
+import os
+os.makedirs('../figures', exist_ok=True)
+os.makedirs('../results', exist_ok=True)
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
