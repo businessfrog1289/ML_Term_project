@@ -25,38 +25,52 @@
 
 ---
 
-## 프로젝트 구조
+## 저장소 구조
+
+```
+ML_Term_project/               ← 저장소 루트
+├── secom.csv                  ← 원본 데이터
+├── requirements.txt
+├── README.md
+└── code/
+    ├── 01_eda_preprocessing.py
+    ├── 02_baseline_models.py
+    ├── 03_glm_regularization.py
+    ├── 04_svm.py
+    ├── 05_decision_tree.py
+    ├── 06_final_comparison.py
+    └── 07_ensemble.py
+```
+
+코드 실행 후 아래 두 폴더가 **저장소 루트(ML_Term_project/)** 에 자동으로 생성된다.
 
 ```
 ML_Term_project/
-├── secom.csv                       ← 원본 데이터
-├── requirements.txt
-├── README.md
-├── code/
-│   ├── 01_eda_preprocessing.py     # EDA & 전처리
-│   ├── 02_baseline_models.py       # LR(Baseline) · LDA · NB
-│   ├── 03_glm_regularization.py    # Ridge · Lasso · ElasticNet
-│   ├── 04_svm.py                   # SVM + GridSearch
-│   ├── 05_decision_tree.py         # DT + 1-SE Pruning
-│   ├── 06_final_comparison.py      # 전체 모델 비교 (앙상블 포함)
-│   └── 07_ensemble.py              # Random Forest · GradBoost · Soft Voting
-├── figures/                        ← 생성된 그래프 (실행 시 자동 생성)
-└── results/                        ← pkl / csv 결과 (실행 시 자동 생성)
+├── figures/    ← 그래프 이미지 (fig01~fig20)
+└── results/    ← 모델 결과 pkl, csv
 ```
 
-> `figures/`와 `results/` 폴더는 코드 실행 시 자동으로 생성되므로 저장소에 포함되지 않는다.
+> `figures/`와 `results/`는 반드시 **`code/` 폴더 안에서 실행**해야 루트에 올바르게 생성된다.  
+> 루트에서 직접 실행하면 상위 폴더(바탕화면 등)에 생성될 수 있으니 주의한다.
 
 ---
 
 ## 환경 설정 및 실행 방법
 
-### 1. Python 버전 확인
+### 1. 저장소 클론
+
+```bash
+git clone https://github.com/businessfrog1289/ML_Term_project.git
+cd ML_Term_project
+```
+
+### 2. Python 버전 확인
 
 ```bash
 python --version   # Python 3.9 이상 권장
 ```
 
-### 2. 가상환경 생성 및 활성화
+### 3. 가상환경 생성 및 활성화
 
 ```bash
 # Windows
@@ -68,20 +82,15 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-### 3. 패키지 설치
+### 4. 패키지 설치
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. 실행 순서
+### 5. 실행 순서
 
-코드는 `code/` 폴더 안에서 실행한다. `secom.csv`는 `code/`의 **상위 폴더(프로젝트 루트)** 에 위치해야 한다.
-
-```
-ML_Term_project/   ← 여기에 secom.csv가 있어야 함
-└── code/          ← 여기서 아래 명령 실행
-```
+**반드시 `code/` 폴더로 이동한 후 실행한다.**
 
 ```bash
 cd code
@@ -95,8 +104,8 @@ python 07_ensemble.py             # Ensemble        → ../figures/fig19~20
 python 06_final_comparison.py     # 최종 비교       → ../figures/fig15~18
 ```
 
-> **주의**: 반드시 위 순서대로 실행해야 한다. 각 스크립트는 이전 단계에서 `../results/`에 저장된 `.pkl` 파일을 읽는다.  
-> `06_final_comparison.py`는 `07_ensemble.py` 이후에 실행한다.
+> **주의**: 반드시 위 순서대로 실행해야 한다. 각 스크립트는 이전 단계에서 생성된 `../results/*.pkl` 파일을 읽는다.  
+> `06_final_comparison.py`는 반드시 `07_ensemble.py` 다음에 실행한다.
 
 ---
 
@@ -126,7 +135,7 @@ python 06_final_comparison.py     # 최종 비교       → ../figures/fig15~18
 | Random Forest | 0.9331 | 0.0000 | 0.7529 |
 | Gradient Boosting | 0.9268 | 0.1481 | 0.7144 |
 
-- ROC-AUC 최고: **Random Forest (0.7529)** — 단, F1-Fail = 0.000으로 실질적 탐지 불가
+- ROC-AUC 최고: **Random Forest (0.7529)** — 단, F1-Fail = 0.000으로 실질적 불량 탐지 불가
 - 균형 성능 최고: **SVM RBF (AUC 0.6938, F1-Fail 0.1818)**
 
 전체 결과는 실행 후 생성되는 `results/final_comparison.csv` 참고.
@@ -135,7 +144,7 @@ python 06_final_comparison.py     # 최종 비교       → ../figures/fig15~18
 
 ## 생성형 AI 활용 내역
 
-본 프로젝트에서 **Claude (Anthropic)** 를 다음 목적으로 활용하였다:
+본 프로젝트에서 **Claude (Anthropic)** 를 다음 목적으로 활용하였다.
 - 코드 구조 설계 및 디버깅 보조
 - 보고서 문단 초안 작성
 
